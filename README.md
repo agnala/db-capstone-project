@@ -1,1 +1,0 @@
-puchara para aprender
