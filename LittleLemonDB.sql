@@ -134,8 +134,10 @@ CREATE TABLE `menu_price` (
   `idPrice` int NOT NULL AUTO_INCREMENT,
   `Price` int DEFAULT NULL,
   `Menu_Item` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idPrice`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb3;
+  `foreing_IDMenuName` int NOT NULL,
+  PRIMARY KEY (`idPrice`,`foreing_IDMenuName`),
+  KEY `foreign` (`foreing_IDMenuName`)
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,8 +146,32 @@ CREATE TABLE `menu_price` (
 
 LOCK TABLES `menu_price` WRITE;
 /*!40000 ALTER TABLE `menu_price` DISABLE KEYS */;
-INSERT INTO `menu_price` VALUES (41,8,'Bruschetta'),(42,15,'Pasta Carbonara'),(43,10,'Red Wine'),(44,5,'Gelato'),(45,7,'Nachos with Cheese'),(46,12,'Tacos al Pastor'),(47,9,'Margarita'),(48,4,'Churros'),(49,6,'Miso Soup'),(50,14,'Sushi Nigiri'),(51,8,'Sake'),(52,3,'Mochi'),(53,5,'Samosas'),(54,13,'Butter Chicken'),(55,4,'Lassi'),(56,4,'Gulab Jamun'),(57,7,'Fried Wontons'),(58,10,'Fried Rice'),(59,3,'Green Tea'),(60,2,'Fortune Cookies'),(61,7,'Tom Yum Soup'),(62,12,'Pad Thai'),(63,4,'Coconut Juice'),(64,6,'Mango Sticky Rice'),(65,12,'Escargots'),(66,20,'Steak Frites'),(67,12,'White Wine'),(68,6,'Macarons'),(69,15,'Iberian Ham'),(70,18,'Paella'),(71,9,'Sangria'),(72,6,'Cheesecake'),(73,6,'Tzatziki with Pita'),(74,10,'Souvlaki'),(75,7,'Ouzo'),(76,4,'Baklava'),(77,12,'Hamburger with Fries'),(78,10,'Mac and Cheese'),(79,3,'Coca-Cola'),(80,3,'Brownie');
+INSERT INTO `menu_price` VALUES (41,8,'Bruschetta',1),(42,15,'Pasta Carbonara',1),(43,10,'Red Wine',1),(44,5,'Gelato',1),(45,7,'Nachos with Cheese',2),(46,12,'Tacos al Pastor',2),(47,9,'Margarita',2),(48,4,'Churros',2),(49,6,'Miso Soup',3),(50,14,'Sushi Nigiri',3),(51,8,'Sake',3),(52,3,'Mochi',3),(53,5,'Samosas',4),(54,13,'Butter Chicken',4),(55,4,'Lassi',4),(56,4,'Gulab Jamun',4),(57,7,'Fried Wontons',5),(58,10,'Fried Rice',5),(59,3,'Green Tea',5),(60,2,'Fortune Cookies',5),(61,7,'Tom Yum Soup',6),(62,12,'Pad Thai',6),(63,4,'Coconut Juice',6),(64,6,'Mango Sticky Rice',6),(65,12,'Escargots',7),(66,20,'Steak Frites',7),(67,12,'White Wine',7),(68,6,'Macarons',7),(69,15,'Iberian Ham',8),(70,18,'Paella',8),(71,9,'Sangria',8),(72,6,'Cheesecake',8),(73,6,'Tzatziki with Pita',9),(74,10,'Souvlaki',9),(75,7,'Ouzo',9),(76,4,'Baklava',9),(77,12,'Hamburger with Fries',10),(78,10,'Mac and Cheese',10),(79,3,'Coca-Cola',10),(80,3,'Brownie',10);
 /*!40000 ALTER TABLE `menu_price` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `menuname`
+--
+
+DROP TABLE IF EXISTS `menuname`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `menuname` (
+  `idMenuName` int NOT NULL AUTO_INCREMENT,
+  `Name_of_Menu` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idMenuName`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menuname`
+--
+
+LOCK TABLES `menuname` WRITE;
+/*!40000 ALTER TABLE `menuname` DISABLE KEYS */;
+INSERT INTO `menuname` VALUES (1,'italian'),(2,'american'),(3,'mexican'),(4,'japanese'),(5,'indian'),(6,'chinese'),(7,'thai'),(8,'french'),(9,'spanish'),(10,'greek');
+/*!40000 ALTER TABLE `menuname` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -177,7 +203,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (28,3,45,2,1,1,4),(29,6,60,2,1,1,4),(30,2,10,2,1,1,4),(31,3,24,2,1,1,4),(32,4,24,2,1,1,4),(33,7,84,2,4,4,3),(34,2,14,2,4,4,3),(35,7,63,2,4,4,3),(36,9,36,2,4,4,3),(37,4,12,2,4,4,3);
+INSERT INTO `orders` VALUES (28,3,45,2,1,1,4),(29,6,200,2,1,1,4),(30,2,10,2,1,1,4),(31,3,24,2,1,1,4),(32,4,24,2,1,1,4),(33,17,204,2,4,4,3),(34,2,14,2,4,4,3),(35,7,63,2,4,4,3),(36,38,152,2,4,4,3),(37,4,12,2,4,4,3);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,6 +238,20 @@ LOCK TABLES `orders_has_menu` WRITE;
 INSERT INTO `orders_has_menu` VALUES (41,31,2,1,1,4),(42,28,2,1,1,4),(43,29,2,1,1,4),(44,30,2,1,1,4),(45,34,2,4,4,3),(46,33,2,4,4,3),(47,35,2,4,4,3),(48,36,2,4,4,3),(72,32,2,1,1,4),(79,37,2,4,4,3);
 /*!40000 ALTER TABLE `orders_has_menu` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `ordersview`
+--
+
+DROP TABLE IF EXISTS `ordersview`;
+/*!50001 DROP VIEW IF EXISTS `ordersview`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `ordersview` AS SELECT 
+ 1 AS `OrderID`,
+ 1 AS `Quantity`,
+ 1 AS `TotalCost`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `staff_information`
@@ -259,7 +299,7 @@ CREATE TABLE `status_history` (
   KEY `fk_table1_deliveryStatus1_idx` (`delivery_status_Delivery_Status_ID`),
   CONSTRAINT `fk_table1_delivery_status1` FOREIGN KEY (`delivery_status_Delivery_Status_ID`) REFERENCES `delivery_status` (`Delivery_Status_ID`),
   CONSTRAINT `fk_table1_orders1` FOREIGN KEY (`orders_OrderID`, `orders_Staff_Information_Staff_InformationID`, `orders_Booking_has_Table_Booking_IDBooking`, `orders_Booking_has_Table_Booking_Customer_IDCustomer`, `orders_Booking_has_Table_Taable_IDTablee`) REFERENCES `orders` (`OrderID`, `Staff_Information_Staff_InformationID`, `Booking_has_Table_Booking_IDBooking`, `Booking_has_Table_Booking_Customer_IDCustomer`, `Booking_has_Table_Taable_IDTablee`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,7 +308,7 @@ CREATE TABLE `status_history` (
 
 LOCK TABLES `status_history` WRITE;
 /*!40000 ALTER TABLE `status_history` DISABLE KEYS */;
-INSERT INTO `status_history` VALUES (10,'2024-10-17 04:45:18',1,28,2,1,1,4),(11,'2024-10-17 04:45:18',1,29,2,1,1,4),(12,'2024-10-17 04:45:18',1,30,2,1,1,4),(13,'2024-10-17 04:45:18',1,31,2,1,1,4),(14,'2024-10-17 04:45:18',1,32,2,1,1,4),(15,'2024-10-17 04:45:18',1,33,2,4,4,3),(16,'2024-10-17 04:45:18',1,34,2,4,4,3),(17,'2024-10-17 04:45:18',1,35,2,4,4,3),(18,'2024-10-17 04:45:18',1,36,2,4,4,3),(19,'2024-10-17 04:45:18',1,37,2,4,4,3),(20,'2024-10-17 04:47:10',3,28,2,1,1,4),(21,'2024-10-17 04:48:07',3,29,2,1,1,4),(22,'2024-10-17 04:48:07',3,30,2,1,1,4),(23,'2024-10-17 04:48:07',3,31,2,1,1,4),(24,'2024-10-17 04:48:07',4,32,2,1,1,4),(25,'2024-10-17 04:48:07',4,33,2,4,4,3),(26,'2024-10-17 04:48:07',4,34,2,4,4,3),(27,'2024-10-17 04:48:07',3,35,2,4,4,3),(28,'2024-10-17 04:48:07',3,36,2,4,4,3);
+INSERT INTO `status_history` VALUES (10,'2024-10-17 04:45:18',1,28,2,1,1,4),(11,'2024-10-17 04:45:18',1,29,2,1,1,4),(12,'2024-10-17 04:45:18',1,30,2,1,1,4),(13,'2024-10-17 04:45:18',1,31,2,1,1,4),(14,'2024-10-17 04:45:18',1,32,2,1,1,4),(15,'2024-10-17 04:45:18',1,33,2,4,4,3),(16,'2024-10-17 04:45:18',1,34,2,4,4,3),(17,'2024-10-17 04:45:18',1,35,2,4,4,3),(18,'2024-10-17 04:45:18',1,36,2,4,4,3),(19,'2024-10-17 04:45:18',1,37,2,4,4,3),(20,'2024-10-17 04:47:10',3,28,2,1,1,4),(21,'2024-10-17 04:48:07',3,29,2,1,1,4),(22,'2024-10-17 04:48:07',3,30,2,1,1,4),(23,'2024-10-17 04:48:07',3,31,2,1,1,4),(24,'2024-10-17 04:48:07',4,32,2,1,1,4),(25,'2024-10-17 04:48:07',4,33,2,4,4,3),(26,'2024-10-17 04:48:07',4,34,2,4,4,3),(27,'2024-10-17 04:48:07',3,35,2,4,4,3),(28,'2024-10-17 04:48:07',3,36,2,4,4,3),(29,'2024-10-18 06:51:41',4,28,2,1,1,4),(32,'2024-10-18 07:03:15',4,28,2,1,1,4),(33,'2024-10-18 07:06:27',4,35,2,4,4,3),(34,'2024-10-18 07:08:35',4,31,2,1,1,4),(35,'2024-10-18 07:09:29',4,29,2,1,1,4);
 /*!40000 ALTER TABLE `status_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,293 +337,88 @@ INSERT INTO `taable` VALUES (1,501),(2,502),(3,503),(4,504),(5,505);
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'littlelemondb'
+-- Temporary view structure for view `task_3`
 --
 
+DROP TABLE IF EXISTS `task_3`;
+/*!50001 DROP VIEW IF EXISTS `task_3`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `task_3` AS SELECT 
+ 1 AS `Name_of_Menu`*/;
+SET character_set_client = @saved_cs_client;
+
 --
--- Dumping routines for database 'littlelemondb'
+-- Temporary view structure for view `´task_2´`
 --
-/*!50003 DROP PROCEDURE IF EXISTS `1 - Register customer` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`proyect_cour`@`localhost` PROCEDURE `1 - Register customer`(
-in xFirst_name varchar(50),
-in xLast_name varchar(50),
-in xEmail varchar(50))
-BEGIN
-INSERT INTO littlelemondb.customer (FirstName,LastName,Email)
-VALUES (xFirst_name,xLast_name,xEmail);
 
-set @IDCustomer = last_insert_id();
+DROP TABLE IF EXISTS `´task_2´`;
+/*!50001 DROP VIEW IF EXISTS `´task_2´`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `´task_2´` AS SELECT 
+ 1 AS `IDCustomer`,
+ 1 AS `FirstName`,
+ 1 AS `LastName`,
+ 1 AS `OrderID`,
+ 1 AS `TotalCost`,
+ 1 AS `Name_of_Menu`,
+ 1 AS `Menu_Item`*/;
+SET character_set_client = @saved_cs_client;
 
-INSERT INTO littlelemondb.booking (Customer_IDCustomer)
-VALUES (@IDCustomer);
+--
+-- Final view structure for view `ordersview`
+--
 
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `2 - Check available tables` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`proyect_cour`@`localhost` PROCEDURE `2 - Check available tables`()
-BEGIN
+/*!50001 DROP VIEW IF EXISTS `ordersview`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`proyect_cour`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `ordersview` AS select `orders`.`OrderID` AS `OrderID`,`orders`.`Quantity` AS `Quantity`,`orders`.`TotalCost` AS `TotalCost` from `orders` where (`orders`.`Quantity` > 2) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 
-    SELECT Tablee as Available_Tables FROM booking
-	left join booking_has_table on booking.IDBooking = booking_has_table.Booking_IDBooking
-	right join taable on booking_has_table.Taable_IDTablee = taable.IDTable
-    where (Time_IN is null and Time_OUT is null) or (Time_IN is not null and Time_OUT is not null);
+--
+-- Final view structure for view `task_3`
+--
 
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `3 - Booking a table` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`proyect_cour`@`localhost` PROCEDURE `3 - Booking a table`(
-in xIDcustomer int,
-in xDate date,
-in xTime_IN time,
-in xTableNumber int
+/*!50001 DROP VIEW IF EXISTS `task_3`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`proyect_cour`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `task_3` AS select `menuname`.`Name_of_Menu` AS `Name_of_Menu` from (((`orders` join `orders_has_menu` on((`orders`.`OrderID` = `orders_has_menu`.`orders_OrderID`))) join `menu_price` on((`orders_has_menu`.`Menu_Price_idPrice` = `menu_price`.`idPrice`))) join `menuname` on((`menu_price`.`foreing_IDMenuName` = `menuname`.`idMenuName`))) where (`orders`.`Quantity` > 2) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 
-)
-BEGIN
-   
-   declare xIDBooking int;
-   declare xIDTable_number int;
-   
-	update booking
-	set Date = xDate,
-		Time_IN = xTime_IN
-    where xIDcustomer= Customer_IDCustomer;
-   
-	select IDBooking into xIDBooking from booking where Customer_IDCustomer = xIDcustomer;
-   
-	select IDTable into xIDTable_number from taable where Tablee = xTableNumber;
-   
-	INSERT INTO littlelemondb.booking_has_table 
-		(
-        Booking_IDBooking,
-        Booking_Customer_IDCustomer,
-        Taable_IDTablee
-        )
-	VALUES
-		(
-        xIDBooking,
-        xIDcustomer,
-        xIDTable_number
-        );
+--
+-- Final view structure for view `´task_2´`
+--
 
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `4 - Taking Order` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`proyect_cour`@`localhost` PROCEDURE `4 - Taking Order`(
-in xTable_ordering int,
-in xQuantity int,
-in xItem_from_Menu varchar(74)
-)
-BEGIN
-
-declare xbooking_has_table_Booking_IDBooking int;
-declare xbooking_has_table_Booking_Customer_IDCustomer int;
-declare xbooking_has_table_ID_Taable_IDTablee int;
-declare xStaff_InformationID int;
-declare xOrderID int;
-declare xMenu_idPrice int;
-declare xPrice int;
-
-select IDTable into xbooking_has_table_ID_Taable_IDTablee from taable
-where Tablee=xTable_ordering;
-
-select Booking_Customer_IDCustomer into xbooking_has_table_Booking_Customer_IDCustomer from booking_has_table
-where Taable_IDTablee=xbooking_has_table_ID_Taable_IDTablee;
-
-select Booking_IDBooking into xbooking_has_table_Booking_IDBooking from booking_has_table
-where Taable_IDTablee=xbooking_has_table_ID_Taable_IDTablee;
-
-select Staff_InformationID into xStaff_InformationID from staff_information
-where Staff_Salary=25000;
-
-select idPrice into xMenu_idPrice from menu_price
-where Menu_Item=xItem_from_Menu;
-
-select Price*xQuantity into xPrice from menu_price
-where Menu_Item=xItem_from_Menu;
-
-insert into orders
-	(
-	Booking_has_Table_Taable_IDTablee,
-	Booking_has_Table_Booking_Customer_IDCustomer,
-    Booking_has_Table_Booking_IDBooking,
-	Staff_Information_Staff_InformationID,
-	Quantity,
-    TotalCost
-	)
-
-VALUES
-	(
-	xbooking_has_table_ID_Taable_IDTablee,
-	xbooking_has_table_Booking_Customer_IDCustomer,
-	xbooking_has_table_Booking_IDBooking,
-    xStaff_InformationID,
-    xQuantity,
-    xPrice
-	);
-    
-select LAST_INSERT_ID() into xOrderID from orders limit 1;
-
-insert into orders_has_menu
-    (
-    Menu_Price_idPrice,
-    Orders_OrderID,
-    Orders_Staff_Information_Staff_InformationID,
-    Orders_Booking_has_Table_Booking_IDBooking,
-    Orders_Booking_has_Table_Booking_Customer_IDCustomer,
-    Orders_Booking_has_Table_Taable_IDTablee
-    )
-    
-values
-    (
-    xMenu_idPrice,
-    xOrderID,
-    xStaff_InformationID,
-    xbooking_has_table_Booking_IDBooking,
-    xbooking_has_table_Booking_Customer_IDCustomer,
-    xbooking_has_table_ID_Taable_IDTablee
-    );
-
-insert into status_history
-    (
-    delivery_status_Delivery_Status_ID,
-    orders_OrderID,
-    orders_Staff_Information_Staff_InformationID,
-    orders_Booking_has_Table_Booking_IDBooking,
-    orders_Booking_has_Table_Booking_Customer_IDCustomer,
-    orders_Booking_has_Table_Taable_IDTablee,
-	Date_of_status
-    )
-    
-    values
-    (
-    "1",
-    xOrderID,
-    xStaff_InformationID,
-	xbooking_has_table_Booking_IDBooking,
-    xbooking_has_table_Booking_Customer_IDCustomer,
-    xbooking_has_table_ID_Taable_IDTablee,
-	now()
-    );
-    
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `5 - Update_Status_order` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`proyect_cour`@`localhost` PROCEDURE `5 - Update_Status_order`(
-in xID_Status_history int,
-in xDelivery_Status_ID int
-)
-BEGIN
-
-declare xorders_OrderID int;
-declare xorders_Staff_Information_Staff_InformationID int;
-declare xorders_Booking_has_Table_Booking_IDBooking int;
-declare xorders_Booking_has_Table_Booking_Customer_IDCustomer int;
-declare xorders_Booking_has_Table_Taable_IDTablee int;
-
-select orders_OrderID into xorders_OrderID from status_history
-where ID_Status_history=xID_Status_history;
-
-select orders_Staff_Information_Staff_InformationID into xorders_Staff_Information_Staff_InformationID from status_history
-where ID_Status_history=xID_Status_history;
-
-select orders_Booking_has_Table_Booking_IDBooking into xorders_Booking_has_Table_Booking_IDBooking from status_history
-where ID_Status_history=xID_Status_history;
-
-select orders_Booking_has_Table_Booking_Customer_IDCustomer into xorders_Booking_has_Table_Booking_Customer_IDCustomer from status_history
-where ID_Status_history=xID_Status_history;
-
-select orders_Booking_has_Table_Taable_IDTablee into xorders_Booking_has_Table_Taable_IDTablee from status_history
-where ID_Status_history=xID_Status_history;
-
-insert into status_history
-(
-Date_of_status,
-delivery_status_Delivery_Status_ID,
-orders_OrderID,
-orders_Staff_Information_Staff_InformationID,
-orders_Booking_has_Table_Booking_IDBooking,
-orders_Booking_has_Table_Booking_Customer_IDCustomer,
-orders_Booking_has_Table_Taable_IDTablee
-)
-
-values
-(
-now(),
-xDelivery_Status_ID,
-xorders_OrderID,
-xorders_Staff_Information_Staff_InformationID,
-xorders_Booking_has_Table_Booking_IDBooking,
-xorders_Booking_has_Table_Booking_Customer_IDCustomer,
-xorders_Booking_has_Table_Taable_IDTablee
-);
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50001 DROP VIEW IF EXISTS `´task_2´`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`proyect_cour`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `´task_2´` AS select `customer`.`IDCustomer` AS `IDCustomer`,`customer`.`FirstName` AS `FirstName`,`customer`.`LastName` AS `LastName`,`orders`.`OrderID` AS `OrderID`,`orders`.`TotalCost` AS `TotalCost`,`menuname`.`Name_of_Menu` AS `Name_of_Menu`,`menu_price`.`Menu_Item` AS `Menu_Item` from ((((((`customer` join `booking` on((`customer`.`IDCustomer` = `booking`.`Customer_IDCustomer`))) join `booking_has_table` on(((`booking`.`IDBooking` = `booking_has_table`.`Booking_IDBooking`) and (`booking`.`Customer_IDCustomer` = `booking_has_table`.`Booking_Customer_IDCustomer`)))) join `orders` on(((`booking_has_table`.`Booking_IDBooking` = `orders`.`Booking_has_Table_Booking_IDBooking`) and (`booking_has_table`.`Booking_Customer_IDCustomer` = `orders`.`Booking_has_Table_Booking_Customer_IDCustomer`) and (`booking_has_table`.`Taable_IDTablee` = `orders`.`Booking_has_Table_Taable_IDTablee`)))) join `orders_has_menu` on(((`orders`.`Booking_has_Table_Booking_IDBooking` = `orders_has_menu`.`orders_Booking_has_Table_Booking_IDBooking`) and (`orders`.`Booking_has_Table_Booking_Customer_IDCustomer` = `orders_has_menu`.`orders_Booking_has_Table_Booking_Customer_IDCustomer`) and (`orders`.`Booking_has_Table_Taable_IDTablee` = `orders_has_menu`.`orders_Booking_has_Table_Taable_IDTablee`)))) join `menu_price` on((`orders_has_menu`.`Menu_Price_idPrice` = `menu_price`.`idPrice`))) join `menuname` on((`menu_price`.`foreing_IDMenuName` = `menuname`.`idMenuName`))) where (`orders`.`TotalCost` > 150) order by `orders`.`TotalCost` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -594,4 +429,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-17  4:51:44
+-- Dump completed on 2024-10-18  7:12:33
