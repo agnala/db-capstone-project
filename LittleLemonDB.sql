@@ -31,7 +31,7 @@ CREATE TABLE `booking` (
   PRIMARY KEY (`IDBooking`,`Customer_IDCustomer`),
   KEY `fk_Booking_Customer_idx` (`Customer_IDCustomer`),
   CONSTRAINT `fk_Booking_Customer` FOREIGN KEY (`Customer_IDCustomer`) REFERENCES `customer` (`IDCustomer`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,'2024-05-04','04:32:00',NULL,1),(2,'2024-02-29','01:30:00','03:00:00',2),(3,'2023-11-11','04:32:00','05:57:00',3),(4,'2022-09-15','09:15:00',NULL,4),(5,'2023-12-31','12:05:00','02:00:00',5);
+INSERT INTO `booking` VALUES (1,'2024-05-04','04:32:00',NULL,1),(2,'2024-02-29','01:30:00','03:00:00',2),(3,'2023-11-11','04:32:00','05:57:00',3),(4,'2022-09-15','09:15:00',NULL,4),(5,'2023-12-31','12:05:00','02:00:00',5),(6,NULL,NULL,NULL,6);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +69,7 @@ CREATE TABLE `booking_has_table` (
 
 LOCK TABLES `booking_has_table` WRITE;
 /*!40000 ALTER TABLE `booking_has_table` DISABLE KEYS */;
-INSERT INTO `booking_has_table` VALUES (3,3,1),(5,5,2),(4,4,3),(1,1,4),(2,2,5);
+INSERT INTO `booking_has_table` VALUES (3,3,1),(6,6,1),(5,5,2),(4,4,3),(1,1,4),(2,2,5);
 /*!40000 ALTER TABLE `booking_has_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +86,7 @@ CREATE TABLE `customer` (
   `LastName` varchar(45) NOT NULL,
   `Email` varchar(45) NOT NULL,
   PRIMARY KEY (`IDCustomer`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'John','Doe','mariochor@yopmail.com'),(2,'Jane','Smith','haskka@yopmail.com'),(3,'Alice','Johnson','ulmiale@yopmail.com'),(4,'Bob','Brown','bashuvar@yopmail.com'),(5,'Charlie','Baker','mar_Sarah@yopmail.com');
+INSERT INTO `customer` VALUES (1,'John','Doe','mariochor@yopmail.com'),(2,'Jane','Smith','haskka@yopmail.com'),(3,'Alice','Johnson','ulmiale@yopmail.com'),(4,'Bob','Brown','bashuvar@yopmail.com'),(5,'Charlie','Baker','mar_Sarah@yopmail.com'),(6,'neo','matrix','superfure@yop.com'),(7,'mark','zukubert','zukuk@@zuk.com');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -429,4 +429,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-18  7:12:33
+-- Dump completed on 2024-10-20  5:15:47
